@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+//= require vendor/jquery.mask
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .

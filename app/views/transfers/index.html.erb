@@ -1,2 +1,39 @@
-<h1>Transfers#index</h1>
-<p>Find me in app/views/transfers/index.html.erb</p>
+<h1>Transfers</h1>
+<%= link_to 'New Transfer', new_transfer_path, class: 'btn btn-primary' %>
+<br />
+<br />
+<h2>Received transfers</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+  <% @transfers_to.each do |transfer| %>
+    <tr>
+      <td><%= transfer.created_at %></td>
+      <td><%= number_to_currency transfer.amount %></td>
+      <td><%= transfer.origin.try(:email) %></td>
+      <td><%= transfer.destiny.try(:email) %></td>
+    </tr>
+  <% end %>
+</table>
+<br />
+<h2>Sent transfers</h2>
+<table class="table table-striped">
+  <tr>
+    <th>Date</th>
+    <th>Amount</th>
+    <th>From</th>
+    <th>To</th>
+  </tr>
+  <% @transfers_from.each do |transfer| %>
+    <tr>
+      <td><%= transfer.created_at %></td>
+      <td><%= number_to_currency transfer.amount %></td>
+      <td><%= transfer.origin.try(:email) %></td>
+      <td><%= transfer.destiny.try(:email) %></td>
+    </tr>
+  <% end %>
+</table>
