@@ -1,15 +1,34 @@
+<script type="text/javascript" charset="utf-8">
+function checkAccountType(){
+  if($('.account_type_form input:checked').val() == 0){
+    $('#personal-info').show();
+    $('#business-info').hide();
+  } else {
+    $('#personal-info').hide();
+    $('#business-info').show();
+  } 
+}
+
+  $(document).on('ready page:load', function(){
+      checkAccountType();
+    $('.account_type_form input').change(function(){
+      checkAccountType();
+    });    
+  });
+
+</script>
 <h2>Sign up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="form-group">
-    <%= f.label :email %><br />
+    <%= f.label :email, 'Email *' %><br />
     <%= f.email_field :email, autofocus: true, class: 'form-control'  %>
   </div>
 
   <div class="form-group">
-    <%= f.label :password %>
+    <%= f.label :password, 'Password *' %>
     <% if @validatable %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
@@ -20,6 +39,85 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'  %>
   </div>
+
+  <div class="form-group account_type_form">
+    <%= f.label :account_type %><br />
+    <label for="">
+      Personal 
+      <%= f.radio_button :account_type,0, checked: true  %>
+    </label>
+    <br />
+    <label for="">
+      Business
+      <%= f.radio_button :account_type, 1  %>
+    </label>
+  </div>
+
+  <fieldset id='personal-info'>
+    <legend>Personal Info</legend>
+      <div class="form-group">
+        <%= f.label :first_name,'First name *' %><br />
+        <%= f.text_field :first_name, autocomplete: "off", class: 'form-control'  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :last_name, 'Last name *' %><br />
+        <%= f.text_field :last_name, autocomplete: "off", class: 'form-control'  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :website %><br />
+        <%= f.text_field :website, autocomplete: "off", class: 'form-control'  %>
+      </div>
+      <fieldset>
+        <legend>Address</legend>
+        <div class="form-group">
+          <%= f.label :street %><br />
+          <%= f.text_field :street, autocomplete: "off", class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :city %><br />
+          <%= f.text_field :city, autocomplete: "off", class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :state %><br />
+          <%= f.text_field :state, autocomplete: "off", class: 'form-control'  %>
+        </div>
+      </fieldset>
+      <div class="form-group">
+        <%= f.label :occupation %><br />
+        <%= f.text_field :occupation, autocomplete: "off", class: 'form-control'  %>
+      </div>
+  </fieldset>
+
+  <fieldset id='business-info'>
+    <legend>Business Info</legend>
+      <div class="form-group">
+        <%= f.label :business_name, 'Business name *' %><br />
+        <%= f.text_field :business_name, autocomplete: "off", class: 'form-control'  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :business_address, 'Business address *' %><br />
+        <%= f.text_field :business_address, autocomplete: "off", class: 'form-control'  %>
+      </div>
+      <div class="form-group">
+        <%= f.label :business_website, 'Business Website *' %><br />
+        <%= f.text_field :business_website, autocomplete: "off", class: 'form-control'  %>
+      </div>
+      <fieldset>
+        <legend>Contact Info</legend>
+        <div class="form-group">
+          <%= f.label :contact_first_name, 'First name *' %><br />
+          <%= f.text_field :contact_first_name, autocomplete: "off", class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :contact_last_name, 'Last name *' %><br />
+          <%= f.text_field :contact_last_name, autocomplete: "off", class: 'form-control'  %>
+        </div>
+        <div class="form-group">
+          <%= f.label :title %><br />
+          <%= f.text_field :title, autocomplete: "off", class: 'form-control'  %>
+        </div>
+      </fieldset>
+  </fieldset>
 
   <div class="actions">
     <%= f.submit "Sign up", class: 'btn btn-default' %>

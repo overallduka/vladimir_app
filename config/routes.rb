@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
   
-  root 'transfers#index'
+  root 'pages#index'
   
   devise_for :users
   resources :transfers
+
+  resources :pages do
+    collection do
+      get :user_account
+    end
+  end
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
